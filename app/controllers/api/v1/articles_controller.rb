@@ -8,7 +8,7 @@ module Api
 
             def show
                 @article = Article.find(params[:id])
-                render json: {status: 'success', message:'loaded article', data:@article},status: :ok
+                render json:@article
             end       
             
             def create
