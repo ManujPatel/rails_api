@@ -37,6 +37,15 @@ module Api
                 render json: {status: 'success', message:'deleted article', data:@article},status: :ok
             end
 
+            def search
+                @article=Article.find_by(title: params[:title])
+                if @article.blank?
+                  render json: {message:'data not found with this title'}
+                else
+                  render json: @article
+                end
+            end
+
             private
                 def set_article
                     @article = Article.find(params[:id])

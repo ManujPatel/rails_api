@@ -33,16 +33,25 @@ module Api
             def destroy
                 @comment.destroy
             end
+
+            def search
+                @article_comment=Comment.find_by(comment: params[:comment])
+                if @article_comment.blank?
+                  render json: {message:'data not found with this comment'}
+                else
+                  render json: @article_comment
+                end
+            end
         
             private
         
-            def find_comment
-                @comment = Comment.find(params[:id])
-            end
-        
-            def comment_params
-                params.require(:comment).permit(:comment_name, :date_of_comment, :article_id)
-            end
+                def find_comment
+                    @comment = Comment.find(params[:id])
+                end
+            
+                def comment_params
+                    params.permit(:comment, :date_of_comment, :article_id)
+                end
         end
     end
 end
